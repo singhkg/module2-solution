@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+
+      .inside {
+        borde: medium solid red;
+        border-width: medium;
+
+      }
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+        color: green;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
+  </head>
+<body ng-app="ShopList">
+  <div ng-controller="ShopListController" class="container">
+  <h1><u>Shopping List Check Off </u></h1>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div ng-controller="ToBuyController as toBuy" class="col-md-6">
+     <h2>To Buy:</h2>    <!-- code to add items in the tobuylist   -->
+      <button ng-click="toBuy.additem();" class="btn btn-default">Show Items to Buy</button></li>
+
+     <!-- code to display items in the tobuylist and to buy items from it  -->
+     <hr width="100%" weight="3" color="red">
+     <div class="col-md-6" ng-controller="ShopListShowController as ShowShopList">
+       <div class="inside" ng-if="!ShowShopList.itemstobuyempty;" >
+        <ol>
+            <li ng-repeat="item in ShowShopList.itemstobuy">{{item}}
+               <button ng-click="ShowShopList.boughtitem(item, $index);" class="btn btn-default">Buy Item</button>
+            </li>
+        </ol>
+      </div>
+      <div ng-if="ShowShopList.itemstobuyempty;" class="emptyMessage">
+                <h3>Already Bought Everything!</h3>
+      </div>
+<!-- code to display bought items from the tobuylist   -->
+      <hr width="100%"/>
+      <h2>Already Bought:</h2>
+
+      <div ng-if="!ShowShopList.itemsalreadybought" class="emptyMessage">
+          <h3>Nothing bought yet.</h3>
+      </div>
+      <div class="col-md-6">
+         <ol>
+            <li ng-repeat="item in ShowShopList.itemsbought">{{item}}
+               </li>
+        </ol>
+     </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
